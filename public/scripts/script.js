@@ -17,8 +17,8 @@ user_name.value='';
 message.value='';
 })
 socket.on('chat',data=>{
-let name_user=document.createElement('h3');
-let message_user=document.createElement('h6');
+let name_user=document.createElement('p');
+let message_user=document.createElement('p');
 name_user.innerHTML=data.name
 message_user.innerHTML=data.message
 chat_messages.appendChild(name_user);

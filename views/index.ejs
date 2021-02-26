@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slack</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+<div class="container">
+  <!-- <aside>
+    <h3 id="title">WEBB20 Nackademin</h3>
+    <h5>Channels </h5>
+    <ul>
+      <li># general</li>
+      <li># random</li>
+      <li># backend1</li>
+      <li>Add a channel </li>
+    </ul>
+  </aside> -->
+  <div id="slack-chat">
+    <h2>Chat and have fun!!!</h2>
+    <div>
+    <div id="chat_messages">
+
+    </div>
+    <form id="form">
+        <input type="text"id="name" placeholder="Name">
+        <input type="text" id="message" placeholder="Type your message here">
+        <button>Send</button>
+    </form>
+  </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/scripts/script.js"></script>
+</body>
+</html>
