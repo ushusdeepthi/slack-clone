@@ -1,0 +1,22 @@
+<aside>
+    <h3 id="title">WEBB20 Nackademin</h3>
+    <h3>Channels </h3>
+    <ul>
+        <% for(let i=0; i < channels.length ; i++) { %>
+            <li >
+                <% if (channels[i].status==='public'){%> 
+                    #
+                <%}
+                else {%>
+                <i class="fas fa-camera"></i>
+                <%}%>
+               
+                 <%= channels[i].name %>
+            </li>
+            <% } %>
+           <li>Add channel  </li>
+
+            
+    </ul>
+
+</aside>
