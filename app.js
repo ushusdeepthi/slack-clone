@@ -16,6 +16,9 @@ app.set('views', (__dirname, './views'));
 
 
 // Routes
+app.get('/login',(req,resp)=>{
+    resp.render('login')
+})
 app.get('/',(req,resp)=>{
     //get channelList from database 
 //just for test

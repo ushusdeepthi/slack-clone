@@ -5,16 +5,16 @@
         <% for(let i=0; i < channels.length ; i++) { %>
             <li >
                 <% if (channels[i].status==='public'){%> 
-                    #
+                    <i class="fas fa-hashtag"></i>
                 <%}
                 else {%>
-                <i class="fas fa-camera"></i>
+                <i class="fas fa-lock"></i>
                 <%}%>
                
                  <%= channels[i].name %>
             </li>
             <% } %>
-           <li>Add channel  </li>
+           <li>Add channel <i class="fas fa-plus"></i> </li>
 
             
     </ul>

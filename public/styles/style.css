@@ -32,6 +32,9 @@ h2{
     display:inline-block;
     padding:2em;
 }
+/* #chat_messages p:hover{
+
+} */
 
 input{
     padding: 0.3em 0.6em;
@@ -57,6 +60,10 @@ ul{
     list-style-type: none;
 }
 li{
-    font-size:1.5rem;
+    font-size:1.1rem;
     font-weight:900;
+    line-height: 1.5em;
+}
+.fa-plus {
+    float:right;
 }
