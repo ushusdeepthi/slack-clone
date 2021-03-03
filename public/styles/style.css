@@ -25,6 +25,8 @@ h2{
 
 #chat_messages{
     height: 60vh;
+    width:inherit;
+    overflow:auto;
     background: #f9f9f9;
 }
 
@@ -35,7 +37,10 @@ h2{
 /* #chat_messages p:hover{
 
 } */
-
+#form{
+    position:sticky;
+    top:100vh;
+}
 input{
     padding: 0.3em 0.6em;
     background: #eee;
