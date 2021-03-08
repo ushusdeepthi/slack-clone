@@ -1,16 +1,27 @@
-// --------------------------
-//      DEPENDENCIES
-//-----------------------
+//set up express
+
 const express=require('express');
-const socket=require('socket.io')
-const path=require('path')
-const mongoose=require('mongoose')
-
-const bodyParser = require('body-parser')
-
 const app=express()
 const server=app.listen(3000)
-const io=socket(server) // opening socket connection
+
+// other dependencies
+
+const expressEjsLayout = require('express-ejs-layouts')
+const flash = require('connect-flash')
+const mongoose=require('mongoose')
+const path = require('path')
+ const passport=require('passport')
+const session = require('express-session')
+const socket=require('socket.io')
+
+const indexRouter=require('./routes/index')
+const usersRouter=require('./routes/users')
+const channelsRouter=require('./routes/channels')
+
+const ChannelModel=require('./models/channels')
+
+// opening socket connection
+const io=socket(server) 
 
 
 //set up default mongoose connection
@@ -23,52 +34,42 @@ const db=mongoose.connection;
 //Bind connection to error event (to get notification of connection errors) 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-app.use(express.static('public'));
-app.use(bodyParser.urlencoded({extended: true}));
+//middlewares
+// app.use(express.static('public'));
+app.use(express.urlencoded({extended: true}));
 app.set("view engine", "ejs");
-app.set('views', (__dirname, './views'));
+app.use(expressEjsLayout)
+app.use(express.urlencoded({ extended: false }))
+app.use(express.static(path.join(__dirname, 'public')));
 
-const ChannelModel=require('./models/channels')
-// Routes
-app.get('/login',(req,resp)=>{
-    resp.render('login')
+//session middleware
+
+app.use(session({
+    secret:'secret',
+    resave:true,
+    saveUninitialized:true
+}))
+//passport
+app.use(passport.initialize())
+    app.use(passport.session())
+
+// flash
+//connect flash
+app.use(flash())
+// creating global variables
+app.use((req, resp, next) => {
+    resp.locals.success_msg = req.flash('success_msg')
+    resp.locals.error_msg = req.flash('error_msg')
+    resp.locals.error = req.flash('error')
+    next()
 })
-app.get('/',(req,resp)=>{
-    //get channelList from database 
-    ChannelModel.find({},(err,channel_list)=>{
-            if(err) console.log('error')
-            console.log(channel_list);
-            resp.render('index',{channels:channel_list})
-        })
-    
-    
-    
-})
-//for individual channels  
-app.get('/:id',async(req,resp)=>{
-     await ChannelModel
-        .find({})
-        .exec((err,channel_list)=>{
-            if(err) console.log('error')
-            console.log(channel_list);
-             ChannelModel
-            .findById(req.params.id)
-            .exec((err,channel)=>{
-            if(err) console.log(err.statusCode)
-            console.log(channel)
-            resp.render('channelDetails', {channel,channels:channel_list})
-        })
-    })
-})
-// get form new channel
-app.get('/new/channel',(req,resp)=>{
-    resp.render('new_channel')
-})
-//post the new channel
-app.post('new/channel',(req,resp)=>{
-    const channelData=req.body
-    console.log(channelData)
-})
+
+//Routes
+app.use('/',indexRouter)
+app.use('/users',usersRouter)
+app.use('/channels',channelsRouter)
+
+//socket
 //log when the user connects and disconnects
 io.on('connection', socket=>{
     // socket.on('joinChannel',()=>{

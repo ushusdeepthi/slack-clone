@@ -1,13 +1,22 @@
+
+
 *,::before,::after{
     box-sizing: border-box;
 }
+body{
+font-family: 'Roboto', sans-serif;
+}
+aside{
+    background-color: #575ed8;
+    color:white;
+    min-height:100vh;
+    padding:2em;
+}
 .container{
     display:flex;
-    gap:2em;
+
 }
-body{
-    font-family: 'Nunito';
-}
+
 
 h2{
     font-size: 1.5rem;
@@ -72,3 +81,8 @@ li{
 .fa-plus {
     float:right;
 }
+.logout{
+    color:white;
+    text-decoration: none;
+}
+

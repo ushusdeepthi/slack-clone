@@ -10,8 +10,8 @@ let id=url_array[url_array.length-1];
 console.log(id)
 form.addEventListener('submit',(e)=>{
 e.preventDefault()
-if(user_name.value && message.value){
-    console.log(user_name.value)
+if(/*user_name.value &&*/ message.value){
+    // console.log(user_name.value)
     console.log(message.value)
 socket.emit('chat',{
     name:user_name.value,
@@ -20,7 +20,7 @@ socket.emit('chat',{
     
 })
 }
-user_name.value='';
+// user_name.value='';
 message.value='';
 })
 socket.on('chat',data=>{

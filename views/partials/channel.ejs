@@ -1,5 +1,7 @@
 <aside>
     <h3 id="title">WEBB20 Nackademin</h3>
+    <p>welcome <%=name %></p>
+    <a class="logout" href="/users/logout">logout</a>
     <h3>Channels </h3>
     <ul>
         <% for(let i=0; i < channels.length ; i++) { %>
@@ -11,7 +13,7 @@
                 <i class="fas fa-lock"></i>
                 <%}%>
                
-                <a href="/<%=channels[i]._id%>"><%= channels[i].channelName %></a> 
+                <a class="logout" href="/channels/<%=channels[i]._id%>"><%= channels[i].channelName %></a> 
             </li>
             <% } %>
            <li>Add channel <i class="fas fa-plus"></i> </li>

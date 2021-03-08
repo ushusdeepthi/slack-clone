@@ -28,4 +28,5 @@ channelsSchema
         return `/catalog/channels/${this._id}`
     })
 
-module.exports = mongoose.model('channels', channelsSchema)
+module.exports = mongoose.model('channel', channelsSchema)
+//pluralise the name and look for that name in the collection ie channels
