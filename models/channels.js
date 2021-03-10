@@ -16,7 +16,7 @@ const channelsSchema= new Schema({
             message:String,
             timeStamp:Date,
             user:String,
-            userImage:String
+        
         }
     ],
     
@@ -29,4 +29,4 @@ channelsSchema
     })
 
 module.exports = mongoose.model('channel', channelsSchema)
-//pluralise the name and look for that name in the collection ie channels
+//pluralise the name and look for that name in the collection ie channels if not create

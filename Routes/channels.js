@@ -12,6 +12,26 @@ router.get('/',ensureAuthenticated,(req,resp)=>{
             resp.render('index',{channels:channel_list,name:req.user.name})
     })
 })
+router.get('/new',ensureAuthenticated,(req,resp)=>{
+    resp.render('new_channel')
+})
+router.post('/new',ensureAuthenticated,(req,resp)=>{
+    
+    const{new_channel, status}=req.body
+        const newChannel=new ChannelModel({
+        channelName:new_channel,
+        status:status
+        })
+        newChannel.save()
+            .then(result=>{
+                console.log(result)
+                req.flash('success_msg','Channel succesfully created')
+                resp.redirect('/channels')
+                })
+            .catch(err=>{
+                console.log(err)  
+            })
+})
 
 //for individual channels  
 router.get('/:id',ensureAuthenticated,(req,resp)=>{
