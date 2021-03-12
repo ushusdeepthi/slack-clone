@@ -1,4 +1,4 @@
-<aside>
+<aside id="side_bar">
     <h3 id="title">WEBB20 Nackademin</h3>
     <p>welcome <%=name %></p>
     <a class="logout" href="/users/logout">logout</a>
@@ -20,5 +20,17 @@
 
             
     </ul>
+    <div id="user_list">
+<% if (typeof usernames!='undefined' ){%>
+    <% for(let i=0;i< usernames.length;i++){%>
 
+        <a class="logout" href="">
+            <p>
+                <%= usernames[i] %>
+            </p>
+        </a>
+
+        <%}%>
+            <%}%>
+</div>
 </aside>

@@ -10,7 +10,7 @@ const expressEjsLayout = require('express-ejs-layouts')
 const flash = require('connect-flash')
 const mongoose=require('mongoose')
 const path = require('path')
- const passport=require('passport')
+const passport=require('passport')
 const session = require('express-session')
 const socket=require('socket.io')
 
@@ -69,18 +69,29 @@ app.use('/',indexRouter)
 app.use('/users',usersRouter)
 app.use('/channels',channelsRouter)
 
+
+
 //socket
 //log when the user connects and disconnects
 io.on('connection', socket=>{
-    // socket.on('joinChannel',()=>{
-    socket.emit('message','Welcome to Slack'); //emits only to the person connected 
-    socket.broadcast.emit('message','A user has connected')//to all other users 
-    // })
+    let person={}
+    
+     socket.on('join',(data)=>{
+        socket.emit('message',`Hi ${data.name} Welcome to slack`); //emits only to the person connected 
+        socket.broadcast.emit('message',` ${data.name} has connected`)//to all other users 
+        //  io.emit('join',data)
+            person[data.name]=socket.id
+     })
+     //trial to fix private chat
+    //  socket.on('private_chat',data=>{
+    //      io.to(person[data.reciever_name]).emit('private_chat', data);
+    //  })
+     
  
 //  console.log(socket.request)
     
 socket.on('chat',(data)=>{
-
+    
     ChannelModel.findByIdAndUpdate(data.id,
         { $push: 
             { conversation: 
@@ -89,7 +100,8 @@ socket.on('chat',(data)=>{
                      if(err) console.log(err.statusCode)
                      console.log(messages)
                 }) 
-    io.emit('chat',data)
+    socket.join(data.channel)
+    io.to(data.channel).emit('chat',data)
 })
 //runs when a user disconnects
   socket.on('disconnect',()=>{

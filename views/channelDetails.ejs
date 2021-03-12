@@ -1,5 +1,5 @@
 
-    <div class="container">
+    <div id="container">
         <%- include('partials/channel', channels) -%>
         <div id="slack-chat">
             <h1>
@@ -19,10 +19,11 @@
             </div>
             <form id="form">
                 <input type="text" id="name" value="<%=name%>" hidden> 
+                <input type="text" id="channel" value="<%=channel.channelName%>" hidden> 
                 <input type="text" id="message" placeholder="Type your message here">
                 <button>Send</button>
             </form>
         </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="/scripts/script.js"></script>
+    
