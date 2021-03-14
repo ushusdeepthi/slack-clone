@@ -7,6 +7,7 @@ const channelsSchema= new Schema({
         required:true
         
     },
+    users: [{ type: mongoose.Schema.Types.ObjectId, ref: "User"}],
     status:{
         type:String,
         required:true

@@ -8,12 +8,18 @@ let channel=document.getElementById('channel')
 let message=document.getElementById('message');
 let chat_messages= document.getElementById('chat_messages');
 let url_array=document.location.href.split('/')
-let user_list=document.getElementById("user_list")
+// let user_list=document.getElementById("user_list")
 // console.log(document.location.href)
 let id=url_array[url_array.length-1];
 // console.log(id)
+
+//------------------------------------old trial-----------------------------
+
 socket.emit('join',{
-    name: user_name.value
+    name: user_name.value,
+    id:id,
+    room:channel.value
+
 })
 // socket.on('join',data=>{
 //     let side_bar=document.getElementById('side_bar')
@@ -21,9 +27,22 @@ socket.emit('join',{
 //     online_user.innerHTML=data.name
 //     side_bar.appendChild(online_user)
 // })
-
+// ----------ehen user_list in channel ejs was an id-----
 // user_list.addEventListener('click',(e)=>{
+//     e.preventDefault();
+//     console.log('hello')
 //     reciever_name=e.target.innerHTML
+//     console.log(target.innerHTML)
+//     console.log(user_name.value)--------------------------
+// ----------when i changed it to a class----------
+let user_list=document.getElementsByClassName("user_list");
+     for(let i=0;i<user_list.length;i++){
+            user_list[i].addEventListener("click",(e)=>{
+                e.preventDefault();
+                receiver_name=e.target.innerHTML.trim()
+                console.log(receiver_name)
+                console.log(user_name.value)
+
 //     slack_chat.remove();
 //     // let private_chat_form=document.createElement('form')
 //     let input=document.createElement('input')
@@ -33,14 +52,16 @@ socket.emit('join',{
 //     container.appendChild(button)
 //     button.addEventListener('click',e=>{
 //         e.preventDefault()
-//     socket.emit('private_chat',{
-//     reciever_name: reciever_name,
-//     senders_name:user_name.value,
-//     msg:input.value
+    socket.emit('private_chat',{
+      receiver: receiver_name,
+    sender:user_name.value,
     
-//     })
+    // msg:input.value
+    
+    })
 // })
-// })
+    })
+}
 // socket.on('private_chat',data=>{
 //     let msg=document.createElement('p')
 //     msg.innerHTML=data.msg
@@ -77,3 +98,40 @@ chat_messages.scrollTop=chat_messages.scrollHeight
 socket.on('message',(message)=>{
     console.log(message)
 })
+socket.on('new_private_channel',url=>{
+    // console.log(new_private_channel)
+    window.location.href=`/channels/${url}`
+})
+
+// -----------------new trial---------------------
+// socket.emit('joinRoom',{
+//     username:user_name.value,
+//     id:id,
+//     room:channel.value
+// })
+// socket.on('chat',msg=>{
+//     console.log(msg)
+// let name_user=document.createElement('p');
+// let message_user=document.createElement('p');
+// name_user.innerHTML=msg.username
+// message_user.innerHTML=msg.text
+
+// chat_messages.appendChild(message_user);
+// chat_messages.scrollTop=chat_messages.scrollHeight
+// })
+// // event listener for submission of form
+// form.addEventListener('submit',(e)=>{
+// e.preventDefault()
+// let msg=message.value
+//     if(msg){
+//         // console.log(user_name.value)
+//         console.log(message.value)
+//         socket.emit('chat Msg',msg)
+        
+//     }
+// // user_name.value='';
+// message.value='';
+// })
+// socket.on('message',(msg)=>{
+//     console.log(msg)
+// })

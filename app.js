@@ -19,6 +19,7 @@ const usersRouter=require('./routes/users')
 const channelsRouter=require('./routes/channels')
 
 const ChannelModel=require('./models/channels')
+const User=require('./models/users')
 
 // opening socket connection
 const io=socket(server) 
@@ -70,26 +71,28 @@ app.use('/users',usersRouter)
 app.use('/channels',channelsRouter)
 
 
-
-//socket
-//log when the user connects and disconnects
+// socket
+// log when the user connects and disconnects
+let person={}
 io.on('connection', socket=>{
-    let person={}
     
-     socket.on('join',(data)=>{
+     socket.on('join',async(data)=>{
         socket.emit('message',`Hi ${data.name} Welcome to slack`); //emits only to the person connected 
         socket.broadcast.emit('message',` ${data.name} has connected`)//to all other users 
+        socket.join(data.room)
         //  io.emit('join',data)
-            person[data.name]=socket.id
+        //check if required----------
+        // let channelId=data.id
+        // let user=await User.findOne({name:data.name})
+        // console.log(user)
+        // //  console.log(data.name)
+        //  console.log(socket.id)
+        //  person[socket.id]={user}        //    person[data.name]=socket.id
+        
+           
+
      })
-     //trial to fix private chat
-    //  socket.on('private_chat',data=>{
-    //      io.to(person[data.reciever_name]).emit('private_chat', data);
-    //  })
-     
- 
-//  console.log(socket.request)
-    
+     //socket for chat    
 socket.on('chat',(data)=>{
     
     ChannelModel.findByIdAndUpdate(data.id,
@@ -100,13 +103,57 @@ socket.on('chat',(data)=>{
                      if(err) console.log(err.statusCode)
                      console.log(messages)
                 }) 
-    socket.join(data.channel)
-    io.to(data.channel).emit('chat',data)
+    
+    io.to(data.room).emit('chat',data)
+    
 })
+     
+     //trial to fix private chat
+     //starting socket for a private chat
+        socket.on('private_chat',  (data)=>{
+            console.log(data.sender)
+            console.log(data.receiver)
+            //getting user details from database
+            User.findOne({name:data.sender})
+                .then(sender=>{
+                    console.log('sender id'+ sender._id) 
+                   User.findOne({name:data.receiver}) // for that user getting receiver details from database
+                   .then(receiver=>{
+                       console.log('receiver id'+receiver._id)
+                        if(sender._id!= receiver.id){
+                        // check if the channel already exists
+                            ChannelModel.findOne({users: {$all: [sender._id, receiver._id]}})
+                                .then(private_channel=>{
+                                    console.log(private_channel)
+                                    if(!private_channel){
+                                        let new_private_channel= new ChannelModel({
+                                            channelName:`${sender.name}-${receiver.name}`,
+                                            status:'private',
+                                            users:[sender._id,receiver._id]
+                                        })
+                                        new_private_channel.save()
+                                        .then(new_private_channel=>{
+                                            console.log(new_private_channel)
+                                            let url=new_private_channel._id
+                                            socket.join(new_private_channel.channelName)
+                                             io.to(socket.id).emit('new_private_channel',url)
+                                        })
+                                    }
+                                    else{
+                                        let url=private_channel._id
+                                        io.to(socket.id).emit('new_private_channel',url)
+                                    }
+                                })
+                        }
+                    
+                    })
+                })
+     })
+
+
 //runs when a user disconnects
   socket.on('disconnect',()=>{
     io.emit('message','A user has disconnected')
   })
-
-
 })
+
