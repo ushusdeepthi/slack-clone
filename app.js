@@ -73,24 +73,31 @@ app.use('/channels',channelsRouter)
 
 // socket
 // log when the user connects and disconnects
-let person={}
-io.on('connection', socket=>{
-    
-     socket.on('join',async(data)=>{
+let users=[]
+io.on('connection', (socket)=>{
+     socket.on('join',(data)=>{
         socket.emit('message',`Hi ${data.name} Welcome to slack`); //emits only to the person connected 
         socket.broadcast.emit('message',` ${data.name} has connected`)//to all other users 
         socket.join(data.room)
         //  io.emit('join',data)
         //check if required----------
-        // let channelId=data.id
+        let channelId=data.id
+        let name=data.name
+
+        // users.indexOf(data.name)==-1 ? users.push(data.name):console.log('user aleady exists')
         // let user=await User.findOne({name:data.name})
         // console.log(user)
         // //  console.log(data.name)
         //  console.log(socket.id)
-        //  person[socket.id]={user}        //    person[data.name]=socket.id
-        
-           
+        //  users[socket.id]={name}        //    person[data.name]=socket.id
+        // users[socket.id]={...user,channelId}
+        let id=socket.id
+        const user={id, name, channelId}
+        users.push(user)
+        console.log('hellooooooooooooooooo')
+           console.log(users)
 
+           io.emit('onlineusers',users)
      })
      //socket for chat    
 socket.on('chat',(data)=>{
@@ -153,7 +160,10 @@ socket.on('chat',(data)=>{
 
 //runs when a user disconnects
   socket.on('disconnect',()=>{
+    const index= users.findIndex(user=>user.id===socket.id)
+    if (index !== -1) {
+    return users.splice(index, 1)[0];
+  }
     io.emit('message','A user has disconnected')
   })
 })
-

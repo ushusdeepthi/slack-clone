@@ -8,7 +8,7 @@ let channel=document.getElementById('channel')
 let message=document.getElementById('message');
 let chat_messages= document.getElementById('chat_messages');
 let url_array=document.location.href.split('/')
-// let user_list=document.getElementById("user_list")
+let online_users=document.getElementById("online_users")
 // console.log(document.location.href)
 let id=url_array[url_array.length-1];
 // console.log(id)
@@ -102,36 +102,14 @@ socket.on('new_private_channel',url=>{
     // console.log(new_private_channel)
     window.location.href=`/channels/${url}`
 })
+socket.on('onlineusers',users=>{
+    console.log(users)
+    // let onlineusers=Object.entries(users)
+    for(user of users){
 
-// -----------------new trial---------------------
-// socket.emit('joinRoom',{
-//     username:user_name.value,
-//     id:id,
-//     room:channel.value
-// })
-// socket.on('chat',msg=>{
-//     console.log(msg)
-// let name_user=document.createElement('p');
-// let message_user=document.createElement('p');
-// name_user.innerHTML=msg.username
-// message_user.innerHTML=msg.text
+        let userOnline=document.createElement('p')
+        userOnline.innerHTML=user.name
+        online_users.appendChild(userOnline)
+    }
+})
 
-// chat_messages.appendChild(message_user);
-// chat_messages.scrollTop=chat_messages.scrollHeight
-// })
-// // event listener for submission of form
-// form.addEventListener('submit',(e)=>{
-// e.preventDefault()
-// let msg=message.value
-//     if(msg){
-//         // console.log(user_name.value)
-//         console.log(message.value)
-//         socket.emit('chat Msg',msg)
-        
-//     }
-// // user_name.value='';
-// message.value='';
-// })
-// socket.on('message',(msg)=>{
-//     console.log(msg)
-// })
