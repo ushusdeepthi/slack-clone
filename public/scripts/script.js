@@ -21,20 +21,6 @@ socket.emit('join',{
     room:channel.value
 
 })
-// socket.on('join',data=>{
-//     let side_bar=document.getElementById('side_bar')
-//     let online_user=document.createElement('p')
-//     online_user.innerHTML=data.name
-//     side_bar.appendChild(online_user)
-// })
-// ----------ehen user_list in channel ejs was an id-----
-// user_list.addEventListener('click',(e)=>{
-//     e.preventDefault();
-//     console.log('hello')
-//     reciever_name=e.target.innerHTML
-//     console.log(target.innerHTML)
-//     console.log(user_name.value)--------------------------
-// ----------when i changed it to a class----------
 let user_list=document.getElementsByClassName("user_list");
      for(let i=0;i<user_list.length;i++){
             user_list[i].addEventListener("click",(e)=>{
@@ -43,37 +29,18 @@ let user_list=document.getElementsByClassName("user_list");
                 console.log(receiver_name)
                 console.log(user_name.value)
 
-//     slack_chat.remove();
-//     // let private_chat_form=document.createElement('form')
-//     let input=document.createElement('input')
-//     input.type="text"
-//     let button=document.createElement('button')
-//     container.appendChild(input)
-//     container.appendChild(button)
-//     button.addEventListener('click',e=>{
-//         e.preventDefault()
     socket.emit('private_chat',{
       receiver: receiver_name,
     sender:user_name.value,
     
-    // msg:input.value
-    
     })
-// })
+
     })
 }
-// socket.on('private_chat',data=>{
-//     let msg=document.createElement('p')
-//     msg.innerHTML=data.msg
-//     container.appendChild(msg)
-    
-// }
-// )
 
 form.addEventListener('submit',(e)=>{
 e.preventDefault()
-    if(/*user_name.value &&*/ message.value){
-        // console.log(user_name.value)
+    if( message.value){
         console.log(message.value)
         socket.emit('chat',{
         name:user_name.value,
@@ -104,7 +71,7 @@ socket.on('new_private_channel',url=>{
 })
 socket.on('onlineusers',users=>{
     console.log(users)
-    // let onlineusers=Object.entries(users)
+    online_users.querySelectorAll('*').forEach(n => n.remove());
     for(user of users){
 
         let userOnline=document.createElement('p')
