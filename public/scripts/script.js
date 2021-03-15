@@ -1,5 +1,5 @@
 const socket=io('http://localhost:3000/')
-console.log(socket)
+// console.log(socket)
 let form=document.getElementById('form');
 let slack_chat=document.getElementById('slack-chat')
 let container=document.getElementById('container')
@@ -53,13 +53,18 @@ e.preventDefault()
 message.value='';
 })
 socket.on('chat',data=>{
-let name_user=document.createElement('p');
-let message_user=document.createElement('p');
-name_user.innerHTML=data.name
-message_user.innerHTML=data.message
-chat_messages.appendChild(name_user);
-chat_messages.appendChild(message_user);
-chat_messages.scrollTop=chat_messages.scrollHeight
+    let div=document.createElement('div')
+    let name_user=document.createElement('p');
+    name_user.classList.add('user')
+    let message_user=document.createElement('p');
+    message_user.classList.add('message')
+    name_user.innerHTML=data.name
+    name_user.innerHTML+=`<span>${new Date().toLocaleTimeString()}</span>`
+    message_user.innerHTML=data.message
+    div.appendChild(name_user);
+    div.appendChild(message_user);
+    chat_messages.appendChild(div);
+    chat_messages.scrollTop=chat_messages.scrollHeight
 
 })
 socket.on('message',(message)=>{

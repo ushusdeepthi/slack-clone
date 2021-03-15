@@ -75,6 +75,7 @@ app.use('/channels',channelsRouter)
 // log when the user connects and disconnects
 let users=[]
 io.on('connection', (socket)=>{
+    console.log(socket.id)
      socket.on('join',(data)=>{
         socket.emit('message',`Hi ${data.name} Welcome to slack`); //emits only to the person connected 
         socket.broadcast.emit('message',` ${data.name} has connected`)//to all other users 
@@ -142,7 +143,7 @@ socket.on('chat',(data)=>{
                                         .then(new_private_channel=>{
                                             console.log(new_private_channel)
                                             let url=new_private_channel._id
-                                            socket.join(new_private_channel.channelName)
+                                            // socket.join(new_private_channel.channelName)
                                              io.to(socket.id).emit('new_private_channel',url)
                                         })
                                     }

@@ -1,6 +1,6 @@
 <aside id="side_bar">
     <h3 id="title">WEBB20 Nackademin</h3>
-    <p>welcome <%=name %></p>
+    <p>Welcome <%=name %></p>
     <a class="logout" href="/users/logout">logout</a>
     <h3>Channels </h3>
     <ul>
@@ -8,14 +8,13 @@
             <li >
                 <% if (channels[i].status==='public'){%> 
                     <i class="fas fa-hashtag"></i>
-                <%}
-                else {%>
-                <i class="fas fa-lock"></i>
-                <%}%>
-               
-                <a class="logout" href="/channels/<%=channels[i]._id%>"><%= channels[i].channelName %></a> 
+                    <a class="logout" href="/channels/<%=channels[i]._id %>">
+                        <%= channels[i].channelName %>
+                    </a>
+                <%} %>
+                
             </li>
-            <% } %>
+        <% } %>
            <li><a class="logout" href="/channels/new">Add channel <i class="fas fa-plus"></i></a> </li>
 
             

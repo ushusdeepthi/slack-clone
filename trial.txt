@@ -1,3 +1,22 @@
+ul in earlier channel.ejs-------------------
+<ul>
+        <% for(let i=0; i < channels.length ; i++) { %>
+            <li >
+                <% if (channels[i].status==='public'){%> 
+                    <i class="fas fa-hashtag"></i>
+                <%}
+                else {%>
+                <i class="fas fa-lock"></i>
+                <%}%>
+               
+                <a class="logout" href="/channels/<%=channels[i]._id%>"><%= channels[i].channelName %></a> 
+            </li>
+            <% } %>
+           <li><a class="logout" href="/channels/new">Add channel <i class="fas fa-plus"></i></a> </li>
+
+            
+    </ul>
+-----------------------------------------------------------------
 app.js just before commit--- Add initial setup private chat-------------------
 //set up express
 
@@ -708,3 +727,35 @@ new channel_details in app.js
 
 
 
+
+channelDetails
+<div id="container">
+        <%- include('partials/channel', channels) -%>
+        <div id="slack-chat">
+            <h1>
+                <%=channel.channelName%>
+            </h1>
+            <h2>Chat and have fun!!!</h2>
+            <div id="chat_messages">
+                <% for(item of channel.conversation) { %>
+                    <div>
+                       
+                        <h4 ><%=item.user %>  </h4>
+                        <p>
+                            <% let x= item.timeStamp.toLocaleTimeString() %>
+                            <%= x %>
+                        </p>
+                        <p><%= item.message %></p>
+                    </div>
+                        <% } %>
+            </div>
+            <form id="form">
+                <input type="text" id="name" value="<%=name%>" hidden> 
+                <input type="text" id="channel" value="<%=channel.channelName%>" hidden> 
+                <input type="text" id="message" placeholder="Type your message here">
+                <button>Send</button>
+            </form>
+        </div>
+    </div>
+ 
+    

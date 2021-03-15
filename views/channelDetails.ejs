@@ -5,16 +5,19 @@
             <h1>
                 <%=channel.channelName%>
             </h1>
-            <h2>Chat and have fun!!!</h2>
+            <h3>Chat and have fun!!!</h3>
             <div id="chat_messages">
                 <% for(item of channel.conversation) { %>
-                    <div>
-                        <% if (item.userImage==='' || typeof(item.userImage==='undefined' ) ){%>
-                            <i class="far fa-user"></i>
-                        <%}%>
-                        <h4 ><%=item.user %>  <span><%= item.timestamp %> </span> </h4>
-                        <p><%= item.message %></p>
-                    </div>
+                        <div>
+                       
+                        <p class="user"><%=item.user %> 
+                            <span>
+                                <% let x= item.timeStamp.toLocaleTimeString() %>
+                                <%= x %>
+                            </span>
+                        </p>
+                        <p class="message"><%= item.message %></p>
+                        </div>
                         <% } %>
             </div>
             <form id="form">
