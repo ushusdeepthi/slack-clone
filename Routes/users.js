@@ -52,7 +52,7 @@ router.post('/register',(req,resp)=>{
             newUser.password=hash
             newUser.save()
                 .then(result=>{
-                    console.log(result)
+                    // console.log(result)
                     req.flash('success_msg','You have been succesfully registered!')
                     resp.redirect('/users/login')
                 })

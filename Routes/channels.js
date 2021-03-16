@@ -11,7 +11,7 @@ router.get('/',ensureAuthenticated,(req,resp)=>{
    
     ChannelModel.find({},(err,channel_list)=>{
             if(err) console.log('error')
-            console.log(channel_list);
+            // console.log(channel_list);
             resp.render('index',{channels:channel_list,name:req.user.name})
     })
 })
@@ -28,7 +28,7 @@ router.post('/new',ensureAuthenticated,(req,resp)=>{
         })
         newChannel.save()
             .then(result=>{
-                console.log(result)
+                // console.log(result)
                 req.flash('success_msg','Channel succesfully created')
                 resp.redirect('/channels')
                 })
@@ -43,7 +43,7 @@ router.get('/:id',ensureAuthenticated,(req,resp)=>{
         .find({})
         .exec((err,channel_list)=>{
             if(err) console.log('error')
-            console.log(channel_list);
+            // console.log(channel_list);
              ChannelModel
             .findById(req.params.id)
             .exec((err,channel)=>{

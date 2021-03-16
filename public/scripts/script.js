@@ -84,4 +84,7 @@ socket.on('onlineusers',users=>{
         online_users.appendChild(userOnline)
     }
 })
+socket.on('alert',alert_msg=>{
+    alert(alert_msg)
+})
 
