@@ -1,6 +1,12 @@
 <aside id="side_bar">
+    <% if(name.img !="undefined"){%>
+        <img src="data:<%=name.img.contentType%>;base64,<%=name.img.data.toString('base64')%>" alt="" id="profile_pic">
+    
+        <%} else {%>
+            <i class="far fa-user"></i>
+        <%}%>
     <h3 id="title">WEBB20 Nackademin</h3>
-    <p>Welcome <%=name %></p>
+    <p>Welcome <%=name.name %></p>
     <a class="logout" href="/users/logout">logout</a>
     <h3>Channels </h3>
     <ul>

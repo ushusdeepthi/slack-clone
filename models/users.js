@@ -15,6 +15,10 @@ const UserSchema= new mongoose.Schema ({
     date:{
         type:Date,
         default:Date.now
+    },
+    img:{
+        data:Buffer,
+        contentType:String
     }
 })
 const User=mongoose.model('User',UserSchema)

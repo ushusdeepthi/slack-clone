@@ -12,7 +12,8 @@ router.get('/',ensureAuthenticated,(req,resp)=>{
     ChannelModel.find({},(err,channel_list)=>{
             if(err) console.log('error')
             // console.log(channel_list);
-            resp.render('index',{channels:channel_list,name:req.user.name})
+            // resp.render('index',{channels:channel_list,name:req.user.name})//---------------
+            resp.render('index',{channels:channel_list,name:req.user})//---------------
     })
 })
 //for new channel
@@ -49,7 +50,8 @@ router.get('/:id',ensureAuthenticated,(req,resp)=>{
             .exec((err,channel)=>{
             if(err) console.log(err.statusCode)
             console.log(channel)
-            resp.render('channelDetails', {channel,channels:channel_list,name:req.user.name})
+            // resp.render('channelDetails', {channel,channels:channel_list,name:req.user.name})//-------
+            resp.render('channelDetails', {channel,channels:channel_list,name:req.user})//-------
         })
     })
 })

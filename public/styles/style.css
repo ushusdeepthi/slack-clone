@@ -99,4 +99,20 @@ li{
     color:white;
     text-decoration: none;
 }
+.profile{
+    width:60vw;
+    margin:0px auto;
+    text-align: center;
+}
+.fa-user{
+    font-size:7rem;
+  
+}
 
+#profile_pic{
+    
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+
+}

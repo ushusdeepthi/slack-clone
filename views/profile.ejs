@@ -1,0 +1,17 @@
+<div class="profile">
+<h1 clas="text-center">PROFILE</h1>
+<p>Username: <%= user.name %>
+</p>
+<% if(locals.user.img.data ){%>
+    <img src="data:<%=user.img.contentType%>;base64,<%=user.img.data.toString('base64')%>" alt="">
+
+    <%} else {%>
+        <i class="far fa-user"></i>
+<%}%>
+
+<form action="/profile/<%=user._id%>" method="POST" enctype="multipart/form-data">
+    <input type="file" name="img" required>
+    <input type="submit" value="Upload">
+</form>
+
+

@@ -17,6 +17,7 @@ const socket=require('socket.io')
 const indexRouter=require('./routes/index')
 const usersRouter=require('./routes/users')
 const channelsRouter=require('./routes/channels')
+const profileRouter=require('./routes/profile')
 
 const ChannelModel=require('./models/channels')
 const User=require('./models/users')
@@ -42,6 +43,8 @@ app.set("view engine", "ejs");
 app.use(expressEjsLayout)
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')));
+// app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+app.use(express.json())
 
 //session middleware
 
@@ -69,6 +72,7 @@ app.use((req, resp, next) => {
 app.use('/',indexRouter)
 app.use('/users',usersRouter)
 app.use('/channels',channelsRouter)
+app.use('/profile',profileRouter)
 
 
 // socket
