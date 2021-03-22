@@ -9,7 +9,10 @@ aside{
     background-color: #575ed8;
     color:white;
     min-height:100vh;
-    padding:2em;
+    padding:1em;
+}
+h4{
+    padding:1em 0.5em 0.5em 0.5em;
 }
 #container{
     display:flex;
@@ -62,6 +65,9 @@ margin-left:2em;
 /* #chat_messages p:hover{
 
 } */
+.channel_list{
+    padding:0;
+}
 #form{
     position:sticky;
     top:100vh;
@@ -98,6 +104,7 @@ li{
 .logout{
     color:white;
     text-decoration: none;
+    padding:0
 }
 .profile{
     width:60vw;
@@ -111,8 +118,24 @@ li{
 
 #profile_pic{
     
-    width: 40px;
-    height: 40px;
+    width: 80px;
+    height: 80px;
     object-fit: cover;
+    border-radius: 50%;
 
+}
+.user_profile{
+    /* border: 2px solid white; */
+    padding:0 0.3em;
+    margin:0 auto;
+    
+}
+.user_img{
+     width: 40vw;
+    height: 40vw;
+    object-fit: cover;
+}
+.new_channel{
+    width:40vw;
+    margin:0 auto;
 }

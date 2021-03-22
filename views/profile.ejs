@@ -3,7 +3,7 @@
 <p>Username: <%= user.name %>
 </p>
 <% if(locals.user.img.data ){%>
-    <img src="data:<%=user.img.contentType%>;base64,<%=user.img.data.toString('base64')%>" alt="">
+    <img src="data:<%=user.img.contentType%>;base64,<%=user.img.data.toString('base64')%>" alt="" class="user_img">
 
     <%} else {%>
         <i class="far fa-user"></i>
@@ -14,4 +14,5 @@
     <input type="submit" value="Upload">
 </form>
 
+<a href="/channels">Back to Home</a>
 

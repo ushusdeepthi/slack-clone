@@ -1,15 +1,17 @@
 <aside id="side_bar">
-    <% if(name.img !="undefined"){%>
-        <img src="data:<%=name.img.contentType%>;base64,<%=name.img.data.toString('base64')%>" alt="" id="profile_pic">
-    
+    <% if(locals.name.img.data){%>
+       
+        <img src="data:<%=name.img.contentType%>;base64,<%=name.img.data.toString('base64')%>" alt="" class="text-center" id="profile_pic">
+        
         <%} else {%>
             <i class="far fa-user"></i>
         <%}%>
-    <h3 id="title">WEBB20 Nackademin</h3>
-    <p>Welcome <%=name.name %></p>
-    <a class="logout" href="/users/logout">logout</a>
-    <h3>Channels </h3>
-    <ul>
+    
+    <p><%=name.name %></p>
+    <a class="logout user_profile" href="/profile/<%=name._id%>">Profile</a>
+    <a class="logout user_profile" href="/users/logout">logout</a>
+    <h4>Channels </h4>
+    <ul class="channel_list">
         <% for(let i=0; i < channels.length ; i++) { %>
             <li >
                 <% if (channels[i].status==='public'){%> 

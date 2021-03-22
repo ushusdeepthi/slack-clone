@@ -80,7 +80,7 @@ app.use('/profile',profileRouter)
 let users=[]
 io.on('connection', (socket)=>{
     console.log('-------------------------------------------------------')
-     socket.on('join',(data)=>{
+    socket.on('join',(data)=>{
     console.log('socket id of '+data.name + socket.id)
 
         socket.emit('message',`Hi ${data.name} Welcome to slack`); //emits only to the person connected 
@@ -101,10 +101,7 @@ io.on('connection', (socket)=>{
         let id=socket.id
         const user={id, name, channelId}
         users.push(user)
-    
-        //    console.log(users)---------------------
-
-           io.emit('onlineusers',users)
+       io.emit('onlineusers',users)
      })
      //socket for chat    
 socket.on('chat',(data)=>{
@@ -122,12 +119,8 @@ socket.on('chat',(data)=>{
     
 })
      
-     //trial to fix private chat
      //starting socket for a private chat
         socket.on('private_chat',  (data)=>{
-            // console.log(data.sender)
-            // console.log(data.receiver)
-            // console.log(users)
             let socketId_receiver=users.filter((value)=>{
                 return value.name===data.receiver
             })
@@ -155,7 +148,7 @@ socket.on('chat',(data)=>{
                                         .then(new_private_channel=>{
                                             // console.log(new_private_channel)
                                             let url=new_private_channel._id
-                                            // socket.join(new_private_channel.channelName)
+                                            
                                              io.to(socket.id).emit('new_private_channel',url)    
                                         })
                                     }
